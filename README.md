@@ -44,7 +44,7 @@ Evolving the fixture to indicate the url of the rest and the params, and where a
 
 Using this thymeleaf decouple groovy:
 
-```JSON
+```
 thlogic {
     attr(sel:'#usersTable', 'th:remove':'all-but-first') {
         attr(sel:'/tr[0]', 'th:each':'user : ${users}') {
