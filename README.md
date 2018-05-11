@@ -24,6 +24,7 @@ then you can open in browser http://localhost:8080/template1 and render template
 ## Evolution of BeanMother 
 You could think how to make a dinamic rest client in a new module of beanmother where witha fixture like this
 
+```YAML
 apiuser: &apiuser
   rest.url: http://rest/api/method?$1
   rest.method: POST
@@ -37,11 +38,13 @@ users: &users
     - <<: *apiuser?value1&value2
     - <<: *apiuser?value3&value4
     - <<: *apiuser?value5&value6
+```
 
 Evolving the fixture to indicate the url of the rest and the params, and where attribute of the "beanmother fixture" to bind the response, the project can instantiate this object with the date returned by the rest client...
 
 Using this thymeleaf decouple groovy:
 
+```JSON
 thlogic {
     attr(sel:'#usersTable', 'th:remove':'all-but-first') {
         attr(sel:'/tr[0]', 'th:each':'user : ${users}') {
@@ -50,6 +53,7 @@ thlogic {
         }
     }
 }
+```
 
 You bind from beanmother to thymeleaf ![deacopled](https://github.com/thymeleaf/thymeleaf/issues/465)
 
