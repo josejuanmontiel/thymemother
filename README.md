@@ -57,6 +57,17 @@ thlogic {
 
 You bind from beanmother to thymeleaf ![deacopled](https://github.com/thymeleaf/thymeleaf/issues/465)
 
+* RUN
+  - Ejecutar
+    - Gradle: gradle bootRun
+    - Maven: mvn spring-boot:run
+  - DocToolChain
+    - ./gradlew -b init.gradle initArc42EN -PnewDocDir=/home/jose/git/thymemother/doc
+    - doctoolchain /home/jose/git/thymemother/doc generateHTML
+    - doctoolchain /home/jose/git/thymemother/doc generatePDF
+  - jqassistant
+    - mvn jqassistant:server
+
 * TODO:
   - Review this links
     - https://github.com/josejuanmontiel/adorable-avatar

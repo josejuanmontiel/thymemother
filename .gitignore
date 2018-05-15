@@ -1,0 +1,9 @@
+/.gradle/
+/.idea/
+/.mvn/
+/build/
+/target/
+/doc/.gradle/
+/doc/build/
+/doc_es/
+/*.iml
