@@ -7,3 +7,9 @@
 /doc/build/
 /doc_es/
 /*.iml
+/.classpath
+/.project
+/.settings/
+/.vscode/
+/bin/
+/out/
