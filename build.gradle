@@ -1,6 +1,7 @@
 buildscript {
 	ext {
-		springBootVersion = '2.0.2.RELEASE'
+// 		springBootVersion = '2.0.2.RELEASE'
+		springBootVersion = '1.5.4.RELEASE'
 	}
 	repositories {
 		mavenCentral()
@@ -15,18 +16,27 @@ apply plugin: 'eclipse'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
 
+springBoot {
+	mainClass = "com.thymemother.ServerApplication"
+}
+
 group = 'com.thymemother'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = 1.8
+targetCompatibility = 1.8
 
 repositories {
 	mavenCentral()
 }
 
-
 dependencies {
-	compile('org.springframework.boot:spring-boot-starter-thymeleaf')
+	compile localGroovy()
+	
+//	compile('org.springframework.boot:spring-boot-starter-thymeleaf')
 	compile('org.springframework.boot:spring-boot-starter-web')
+	compile('org.thymeleaf:thymeleaf:3.0.0.BETA02')
+	compile('org.thymeleaf:thymeleaf-spring4:3.0.0.BETA02')
 	compile('org.codehaus.groovy:groovy')
+	compile('org.codehaus.groovy:groovy-templates:2.4.6')
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 }
