@@ -20,6 +20,10 @@ springBoot {
 	mainClass = "com.thymemother.ServerApplication"
 }
 
+bootRun {
+	systemProperties System.properties
+}
+
 group = 'com.thymemother'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = 1.8
@@ -38,5 +42,9 @@ dependencies {
 	compile('org.thymeleaf:thymeleaf-spring4:3.0.0.BETA02')
 	compile('org.codehaus.groovy:groovy')
 	compile('org.codehaus.groovy:groovy-templates:2.4.6')
+
+	compile group: 'io.beanmother', name: 'beanmother-core', version: '0.7.5'
+
 	testCompile('org.springframework.boot:spring-boot-starter-test')
+
 }

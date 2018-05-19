@@ -67,6 +67,9 @@ You bind from beanmother to thymeleaf ![deacopled](https://github.com/thymeleaf/
     - doctoolchain /home/jose/git/thymemother/doc generatePDF
   - jqassistant
     - mvn jqassistant:server
+  - Sobreescritura
+    * -Dspring.thymeleaf.prefix=file:///home/jose/git/thymemother/external/templates/
+    * -DfixtureDir=filesystem:///home/jose/git/thymemother/external/fixture
 
 * TODO:
   - Review this links

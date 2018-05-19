@@ -46,19 +46,12 @@ public final class GroovyDecoupledTemplateLogicResolver implements IDecoupledTem
      */
     public static final String DECOUPLED_TEMPLATE_LOGIC_FILE_SUFFIX = ".groovy";
 
-
     private String prefix = null;
     private String suffix = DECOUPLED_TEMPLATE_LOGIC_FILE_SUFFIX;
-
-
-
 
     public GroovyDecoupledTemplateLogicResolver() {
         super();
     }
-
-
-
 
     public String getSuffix() {
         return this.suffix;
@@ -68,9 +61,6 @@ public final class GroovyDecoupledTemplateLogicResolver implements IDecoupledTem
         this.suffix = suffix;
     }
 
-
-
-
     public String getPrefix() {
         return this.prefix;
     }
@@ -78,9 +68,6 @@ public final class GroovyDecoupledTemplateLogicResolver implements IDecoupledTem
     public void setPrefix(final String prefix) {
         this.prefix = prefix;
     }
-
-
-
 
     public ITemplateResource resolveDecoupledTemplateLogic(
             final IEngineConfiguration configuration,
@@ -94,7 +81,6 @@ public final class GroovyDecoupledTemplateLogicResolver implements IDecoupledTem
         if (this.suffix != null) {
             relativeLocation = relativeLocation + this.suffix;
         }
-
 
         if (resource.relative(relativeLocation).exists()) {
             GroovyTemplateResource result = new GroovyTemplateResource(resource.relative(relativeLocation).reader());
