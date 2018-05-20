@@ -68,10 +68,18 @@ You bind from beanmother to thymeleaf ![deacopled](https://github.com/thymeleaf/
   - jqassistant
     - mvn jqassistant:server
   - Sobreescritura
-    * -Dspring.thymeleaf.prefix=file:///home/jose/git/thymemother/external/templates/
-    * -DfixtureDir=filesystem:///home/jose/git/thymemother/external/fixture
+    * -Dspring.thymeleaf.prefix=file:///path/to/directory/thymemother/external/templates/
+    * -DfixtureDir=filesystem:///path/to/directory/external/fixture
+
+-Dspring.thymeleaf.prefix=file:///home/jose/git/thymemother/external/templates/ -DfixtureDir=filesystem:///home/jose/git/thymemother/external/fixture
 
 * TODO:
+  - Load class model from external directory...
+
+  - Beanmother
+    - Can instantiate only list?
+    - Autoscan and best fit to fixture the yml...
+
   - Review this links
     - https://github.com/josejuanmontiel/adorable-avatar
     - https://github.com/josejuanmontiel/dynamic-rest-template
