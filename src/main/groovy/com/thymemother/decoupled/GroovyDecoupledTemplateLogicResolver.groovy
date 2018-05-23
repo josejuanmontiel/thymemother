@@ -44,7 +44,7 @@ public final class GroovyDecoupledTemplateLogicResolver implements IDecoupledTem
      *   Default suffix applied to the relative resources resolved: <tt>.th.xml</tt>
      * </p>
      */
-    public static final String DECOUPLED_TEMPLATE_LOGIC_FILE_SUFFIX = ".groovy";
+    public static final String DECOUPLED_TEMPLATE_LOGIC_FILE_SUFFIX = ".th.groovy";
 
     private String prefix = null;
     private String suffix = DECOUPLED_TEMPLATE_LOGIC_FILE_SUFFIX;

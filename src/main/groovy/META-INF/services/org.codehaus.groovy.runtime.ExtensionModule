@@ -1,0 +1,3 @@
+moduleName=My extension module
+moduleVersion=1.0
+extensionClasses=com.thymemother.dsl.HelperExtension 

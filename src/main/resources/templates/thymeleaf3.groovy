@@ -1,9 +1,11 @@
-thlogic {
-    attr(sel:'#usersTable', 'th:remove':'all-but-first') {
-        attr(sel:'/tr[0]', 'th:each':'user : ${users}') {
-            attr(sel:'td.username', 'th:text':'${user.name}')
-            attr(sel:'td.usertype', 'th:text':'${user.type}')
-        }
+root {
+    map{
+        item 'def map1 = [user1, User.class]'
+        item 'def map2 = [user2, User.class]'
+    }
+    model {
+        item 'def users = [user1, user2]'
     }
 }
+
 

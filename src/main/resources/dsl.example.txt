@@ -1,0 +1,4 @@
+token {
+	uri 'http://vocab.lappsgrid.org/Token'
+	description 'A string of one or more characters that serves as an indivisible unit.'
+}
