@@ -70,14 +70,19 @@ template {
 The rest, represent the mappings and the assing to model.
 ```
 root {
-    map{
-        def map1 = [user1, User.class]
-        def map2 = [user2, User.class]
-        def map3 = [apiuser, User.class]
+    def user1 = map {
+        fixture objectMother, "user1", User.class
     }
+    def user2 = map {
+        fixture objectMother, "user2", User.class
+    }
+
+    def users = [user1, user2]
+
     model {
-        def users = [user1, user2, apiuser]
+        add m, "users", users
     }
+}
 ```
 
 You define the matching between model class and the fixture.

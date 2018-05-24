@@ -30,29 +30,26 @@ public class Thymeleaf3Controller {
 
     @RequestMapping(value="/{template}", method=RequestMethod.GET)
     public String selectAdorable(@PathVariable("template") String template, Model m) {
-        ObjectMother objectMother = ObjectMother.getInstance();
+        def ObjectMother objectMother = ObjectMother.getInstance();
 
         // Overwrite source of directory fixture by system properties...
         String fixturePath = System.properties['fixtureDir']
         objectMother.addFixtureLocation(fixturePath)
 
         root {
-            model {
-                item 'def users = [user1, user2]'
+            def user1 = map {
+                fixture objectMother, "user1", User.class
             }
-            map{
-                item 'def map1 = [user1, User.class]'
-                item 'def map2 = [user2, User.class]'
+            def user2 = map {
+                fixture objectMother, "user2", User.class
+            }
+
+            def users = [user1, user2]
+
+            model {
+                add m, "users", users
             }
         }
-
-        // Read the map from .groovy file
-        def user1 = objectMother.bear("user1", User.class);
-        def user2 = objectMother.bear("user2", User.class);
-
-        // Load the agregate from the m..
-        def users = [user1, user2]
-        m.addAttribute("users", users)
 
         return template;
     }
