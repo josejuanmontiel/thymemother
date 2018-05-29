@@ -7,8 +7,10 @@ import com.thymemother.dsl.ModelSpec
 import com.thymemother.dsl.HelperExtension
 import com.thymemother.model.Author
 import com.thymemother.model.Book
+import org.codehaus.groovy.control.CompilerConfiguration
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
+import org.springframework.core.io.ClassPathResource
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.PathVariable
@@ -19,37 +21,37 @@ import io.beanmother.core.*
 @Controller
 public class Thymeleaf3Controller {
 
-    def root(Closure cl) {
-        def root = new RootSpec()
-        def code = cl.rehydrate(root, this, this)
-        code.resolveStrategy = Closure.DELEGATE_ONLY
-        code()
-    }
-
     Logger log = LoggerFactory.getLogger(Thymeleaf3Controller.class);
 
     @RequestMapping(value="/{template}", method=RequestMethod.GET)
     public String selectAdorable(@PathVariable("template") String template, Model m) {
-        def ObjectMother objectMother = ObjectMother.getInstance();
-
         // Overwrite source of directory fixture by system properties...
+        def ObjectMother objectMother = ObjectMother.getInstance();
         String fixturePath = System.properties['fixtureDir']
         objectMother.addFixtureLocation(fixturePath)
 
-        root {
-            def user1 = map {
-                fixture objectMother, "user1", User.class
+        // Get the source code of external dsl, by default or by properties
+        // this it's the same of the template, but with another extension
+        String code
+        String templatePath = System.properties['spring.thymeleaf.prefix']
+        if (templatePath==null) {
+            code = new ClassPathResource("templates/"+template+".groovy").getFile().text
+        } else {
+            String groovyDsl = templatePath+"/"+template+".groovy"
+            if (groovyDsl.startsWith("file://")) {
+                groovyDsl = groovyDsl.substring(7)
             }
-            def user2 = map {
-                fixture objectMother, "user2", User.class
-            }
-
-            def users = [user1, user2]
-
-            model {
-                add m, "users", users
-            }
+            code = new File(groovyDsl).text
         }
+
+        // Pass the variables to the DSL
+        Binding binding = new Binding();
+        binding.setProperty("m", m);
+        binding.setProperty("objectMother", objectMother);
+
+        // Execute DSL
+        Script script = new GroovyShell(binding).parse(code)
+        script.run()
 
         return template;
     }

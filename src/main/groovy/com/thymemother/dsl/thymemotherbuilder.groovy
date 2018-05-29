@@ -1,8 +1,6 @@
 package com.thymemother.dsl
 
-import com.thymemother.controller.model.User
 import io.beanmother.core.ObjectMother
-import org.springframework.ui.Model
 import org.springframework.validation.support.BindingAwareModelMap
 
 // http://docs.groovy-lang.org/docs/latest/html/documentation/core-domain-specific-languages.html#section-delegatesto
@@ -34,11 +32,4 @@ class RootSpec {
         code.resolveStrategy = Closure.DELEGATE_ONLY
         code()
     }
-}
-
-def root(Closure cl) {
-    def root = new RootSpec()
-    def code = cl.rehydrate(root, this, this)
-    code.resolveStrategy = Closure.DELEGATE_ONLY
-    code()
 }

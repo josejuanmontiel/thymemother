@@ -119,6 +119,23 @@ Using all of this, an thymeleaf ![deacopled](https://github.com/thymeleaf/thymel
     - https://github.com/josejuanmontiel/dynamic-rest-template
 
 - WIP
+    - Pendiente:
+        - Añadir a los "compilation customizer" los necesario para "ocultar"
+
+            import com.thymemother.dsl.RootSpec
+            import com.thymemother.controller.model.User
+
+            def m = binding.getVariable("m")
+            def objectMother = binding.getVariable("objectMother")
+
+            def root(Closure cl) {
+                def root = new RootSpec()
+                def code = cl.rehydrate(root, this, this)
+                code.resolveStrategy = Closure.DELEGATE_ONLY
+                code()
+            }
+        - Hacer dentro de los specs un metodo sin: m y objectMother para que vayan por "dentro"
+        - Carga de clases MODEL desde una ruta exterior
     - Ver como usar en DocToolChain la integracion de qdox en gradle y luego maven
         - ./gradlew -b init.gradle initArc42EN -PnewDocDir=/home/jose/git/thymemother/doc
         - doctoolchain /home/jose/git/thymemother/doc generateHTML
