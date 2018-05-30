@@ -20,7 +20,9 @@ public class Thymeleaf3Controller {
         // Overwrite source of directory fixture by system properties...
         def ObjectMother objectMother = ObjectMother.getInstance();
         String fixturePath = System.properties['fixtureDir']
-        objectMother.addFixtureLocation(fixturePath)
+        if (fixturePath!=null) {
+            objectMother.addFixtureLocation(fixturePath)
+        }
 
         // Get the source code of external dsl, by default or by properties
         // this it's the same of the template, but with another extension

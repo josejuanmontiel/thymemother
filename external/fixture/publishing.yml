@@ -7,19 +7,3 @@ user2: &user2
   name: user2
   surname: surname2
   type: type2
-
-book: &book
-  title: Title
-  language: en
-  publishedAt: ${faker.date.between('2000-01-01', '2010-01-01')}
-
-author:
-  id: ${sequence.number}
-  name: Ernest Hemingway
-  introduction: ${faker.lorem.paragraph}
-  birth: July 21, 1899
-  gender: MALE
-  works:
-    - <<: *book
-    - <<: *book
-    - <<: *book

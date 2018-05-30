@@ -1,15 +1,7 @@
-book: &book
-  title: ${faker.book.title}
-  language: en
-  publishedAt: ${faker.date.between('2000-01-01', '2010-01-01')}
+user1: &user1
+  name: user1
+  type: type1
 
-author:
-  id: ${sequence.number}
-  name: Ernest Hemingway
-  introduction: ${faker.lorem.paragraph}
-  birth: July 21, 1899
-  gender: MALE
-  works:
-    - <<: *book
-    - <<: *book
-    - <<: *book
+user2: &user2
+  name: user2
+  type: type2
