@@ -1,4 +1,4 @@
-package com.thymemother.dsl
+package com.thymemother.test.dsl
 
 // https://gist.github.com/christoph-daehne/a7b60503799c64f6afbf
 

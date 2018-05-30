@@ -1,9 +1,11 @@
 user1: &user1
   name: user1
+  surname: surname1
   type: type1
 
 user2: &user2
   name: user2
+  surname: surname2
   type: type2
 
 book: &book

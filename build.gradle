@@ -47,4 +47,7 @@ dependencies {
 
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 
+	// Set the external directory as classpath
+	runtime files('external/classpath')
+
 }

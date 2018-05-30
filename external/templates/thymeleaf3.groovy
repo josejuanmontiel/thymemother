@@ -1,5 +1,6 @@
 import com.thymemother.dsl.RootSpec
-import com.thymemother.controller.model.User
+// Import using package inside classpath directory...
+import com.thymemother.controller.model.ExtUser
 
 def m = binding.getVariable("m")
 def objectMother = binding.getVariable("objectMother")
@@ -13,10 +14,10 @@ def root(Closure cl) {
 
 root {
     def user1 = map {
-        fixture objectMother, "user1", User.class
+        fixture objectMother, "user1", ExtUser.class
     }
     def user2 = map {
-        fixture objectMother, "user2", User.class
+        fixture objectMother, "user2", ExtUser.class
     }
 
     def users = [user1, user2]

@@ -1,4 +1,4 @@
-package com.thymemother.dsl
+package com.thymemother.test.dsl
 
 import java.util.List
 

@@ -1,4 +1,4 @@
-package com.thymemother.dsl
+package com.thymemother.test.dsl
 
 // http://melix.github.io/javaone-groovy-dsls/#/implementing-modern-dsls
 

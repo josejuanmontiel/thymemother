@@ -1,13 +1,5 @@
 package com.thymemother.controller
 
-import com.thymemother.controller.model.User
-import com.thymemother.dsl.RootSpec
-import com.thymemother.dsl.MapSpec
-import com.thymemother.dsl.ModelSpec
-import com.thymemother.dsl.HelperExtension
-import com.thymemother.model.Author
-import com.thymemother.model.Book
-import org.codehaus.groovy.control.CompilerConfiguration
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.core.io.ClassPathResource
