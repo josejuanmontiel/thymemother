@@ -1,46 +1,38 @@
 # thymemother
+
 A "bean mother pattern" for the Thymeleaf templates.
 
-## BeanMother
-When I discover [Beanmother](http://beanmother.io) I thought it could be a good "testing purpose" library..
-
-![Beanmother use case](beanmother-use-case.jpg)
-
-to build "object" for junit test, build it from yml... and too, for load the database.​
-
-This will be another project, but now...
-
 ## The idea
-The current project came from my frontend experience...
+
+The idea behind the project is simple, allow the designers of a web project,
+have the necessary tools to identify and model the entities that will be represented
+in each of the parts of a website, and even to connect the REST services with the parties
+from the web where they are going to show. The designers are usually closer to the UX and UI
+and therefore can know first hand what data is shown in each part.
+
+This could be an scheme of the parts
 
 ![Thymemother proposal](thymemother-proposal.jpg)
 
 In my [blog](https://josejuanmontiel.github.io/blog/2016/10/groovy-thymelaf.es.html), few years ago,
-I start to think about. Now, the idea it's "extend" beanmother for "build the objects" from an API REST,
-and do "spring mvc+thymeleaf+generic controller" + groovy library to put "html+th.xml" for rapid HTML prototyping.
+I start to think about. Now, the idea it's build a springboot + thymeleaf + groovy project, that
+use beanmother for "build the objects", and when new module will be developed this will connect from an API REST.
+
+There will be other ways to do it, this is my way ;)
 
 ## How to run it
 
 Clone the project and: gradle bootRun
 
-### TODO
-
-- Arrancar gradle en modo daemon con autorefresco de clases y thymeleaf
-- Version maven
-- Arrancar como libreria java
-
-    java -jar thymemother.jar -Dport=8080
-        -Dspring.thymeleaf.prefix=file:///path/to/directory/thymemother/external/templates/
-        -DfixtureDir=filesystem:///path/to/directory/external/fixture
-
 ## How to use it
 
-Then you can open in browser http://localhost:8080/thymeleaf3 and render src/main/resources/templates/thymeleaf3.html
-using ![deacopled](https://github.com/thymeleaf/thymeleaf/issues/465) with src/main/resources/templates/thymeleaf3.th.groovy
-or if doesn't exist .th.groovy file the src/main/resources/templates/thymeleaf3.th.xml version, and witch binding apply?
+Then you can open in browser http://localhost:8080/thymeleaf3 and this will render src/main/resources/templates/thymeleaf3.html
+and thanks to src/main/resources/templates/thymeleaf3.th.groovy this will a groovy version of ![deacopled](https://github.com/thymeleaf/thymeleaf/issues/465)
+that render the .th.xml version. or if doesn't exist .th.groovy file the src/main/resources/templates/thymeleaf3.th.xml will be use,
+and witch binding apply?
 
-## Evolution of BeanMother 
-You could think how to make a dinamic rest client in a new module of beanmother where witha fixture like this
+## BeanMother
+The folder src/main/resources/fixtures contains the fixtures for beanmother
 
 ```YAML
 user1: &user1
@@ -50,19 +42,7 @@ user1: &user1
 user2: &user2
   name: user2
   type: type2
-
-apiuser: &apiuser
-  rest.url: http://rest/api/method?$1
-  rest.method: POST
-  rest.param: {"param1":"value1","param2":$2}
-  
-  name: response.param_name
-  type: response.param_type
-  other: ${faker.book.title}
 ```
-
-Evolving the fixture to indicate the url of the rest and the params, and where attribute of the "beanmother fixture" to bind the response,
-the project can instantiate this object with the date returned by the rest client...
 
 Using a groovy DSL (src/main/groovy/com/thymemother/dsl/thymemotherbuilder.groovy) defined in a file behind the other
 src/main/resources/templates/thymeleaf3.groovy
@@ -101,9 +81,19 @@ root {
 
 ```
 
-- WIP to remove the TODO and clean the DSL, but inside:
-- You define the matching between model class and the fixture.
-- You define the relation of the instanced fixtures and the thymeleaf model object.
+You can define variables, and using this DSL
+
+    fixture objectMother, "user1", User.class
+
+You define generation of an object using a fixture.
+
+And with this part
+
+    add m, "users", users
+
+you define the relation of the instanced fixtures (users) in the variables and the thymeleaf model object ("users").
+
+- WIP to remove the TODO and clean the DSL, but inside
 
 ## How to run it using "external configurations"
 
@@ -117,14 +107,57 @@ root {
 
 gradle -Dspring.thymeleaf.prefix=file:///path/.../templates/ -DfixtureDir=filesystem:///path/.../fixture bootRun
 
-## How to run this project from source code
-- Maven
-    - mvn spring-boot:run
+## NEXT STEPS
+  - Add compilation customizer to hide this imports
 
-- TODO:
+    import com.thymemother.dsl.RootSpec
+    import com.thymemother.controller.model.User
+
+  - How can i put this "outside" the dsl
+
+    def m = binding.getVariable("m")
+    def objectMother = binding.getVariable("objectMother")
+
+  - Make another method inside specs, without m and objectMother?
+
+  - Is this necesary inside the dsl?
+
+    def root(Closure cl) {
+        def root = new RootSpec()
+        def code = cl.rehydrate(root, this, this)
+        code.resolveStrategy = Closure.DELEGATE_ONLY
+        code()
+    }
+
+
+## TODO:
+  - Thymeleaf
+    - Upgrade to latest thymeleaf version
+    - Generalize parameter url/query string
+    - Generalize form parameter
+    - And option to render the generate HTML to an external dir
+
+  - How to run it
+    - Run gradle daemon with classreload and disable thymeleaf cache
+    - Run with fatjar
+
+      java -jar thymemother.jar -Dport=8080
+          -Dspring.thymeleaf.prefix=file:///path/to/directory/thymemother/external/templates/
+          -DfixtureDir=filesystem:///path/to/directory/external/fixture
+
   - Beanmother
     - Can instantiate only list?
     - Autoscan and best fit to fixture the yml...
+    - Module to rest client
+
+        apiuser: &apiuser
+          rest.url: http://rest/api/method?$1
+          rest.method: POST
+          rest.param: {"param1":"value1","param2":$2}
+
+          name: response.param_name
+          type: response.param_type
+          other: ${faker.book.title}
 
   - Faker
       - Review issues:
@@ -135,26 +168,21 @@ gradle -Dspring.thymeleaf.prefix=file:///path/.../templates/ -DfixtureDir=filesy
     - https://github.com/josejuanmontiel/adorable-avatar
     - https://github.com/josejuanmontiel/dynamic-rest-template
 
-- WIP
-    - Pendiente:
-        - Añadir a los "compilation customizer" los necesario para "ocultar"
+- Another related things to review
+    - Fix maven
+        - mvn spring-boot:run
 
-            import com.thymemother.dsl.RootSpec
-            import com.thymemother.controller.model.User
-
-            def m = binding.getVariable("m")
-            def objectMother = binding.getVariable("objectMother")
-
-            def root(Closure cl) {
-                def root = new RootSpec()
-                def code = cl.rehydrate(root, this, this)
-                code.resolveStrategy = Closure.DELEGATE_ONLY
-                code()
-            }
-        - Hacer dentro de los specs un metodo sin: m y objectMother para que vayan por "dentro"
-    - Ver como usar en DocToolChain la integracion de qdox en gradle y luego maven
+    - DocToolChain + qdox + gradle and later maven
         - ./gradlew -b init.gradle initArc42EN -PnewDocDir=/home/jose/git/thymemother/doc
         - doctoolchain /home/jose/git/thymemother/doc generateHTML
         - doctoolchain /home/jose/git/thymemother/doc generatePDF
-    - jqassitance, que puede ofrecer con el parseo de clase que se almacena en neo4j
+    - jqassitance + neo4j
         - mvn jqassistant:server
+
+## Another project for beanMother
+
+When I discover [Beanmother](http://beanmother.io) I thought it could be a good "testing purpose" library..
+
+   ![Beanmother use case](beanmother-use-case.jpg)
+
+to build "object" for junit test, build it from yml... and too, for load the database.​
