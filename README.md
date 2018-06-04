@@ -93,6 +93,19 @@ And with this part
 
 you define the relation of the instanced fixtures (users) in the variables and the thymeleaf model object ("users").
 
+Note that User class is a groovy class
+
+```
+package com.thymemother.controller.model
+
+class User {
+
+    String name
+    String type
+}
+```
+and you can and should hierchary class as you need model the info inside html.
+
 - WIP to remove the TODO and clean the DSL, but inside
 
 ## How to run it using "external configurations"
