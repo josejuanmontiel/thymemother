@@ -1,34 +1,67 @@
 package com.thymemother.dsl
 
 import io.beanmother.core.ObjectMother
+import org.springframework.ui.Model
 import org.springframework.validation.support.BindingAwareModelMap
 
 // http://docs.groovy-lang.org/docs/latest/html/documentation/core-domain-specific-languages.html#section-delegatesto
 
 class MapSpec {
     def bm
-    void fixture(ObjectMother objectMother, String fixture, Class clazz) {
+
+    ObjectMother objectMother
+
+    MapSpec(ObjectMother o) {
+        objectMother = o;
+    }
+
+    void fixture(String fixture, Class clazz) {
         bm = objectMother.bear(fixture, clazz);
     }
 }
 
 class ModelSpec {
-    void add(BindingAwareModelMap m, String name, Object value) {
-        m.addAttribute(name, value)
+    BindingAwareModelMap model
+
+    ModelSpec(BindingAwareModelMap m) {
+        model = m
+    }
+
+    void add(String name, Object value) {
+        model.addAttribute(name, value)
     }
 }
 
 class RootSpec {
-    def map(Closure map) {
-        def mapSpec = new MapSpec()
-        def code = map.rehydrate(mapSpec, this, this)
+
+    ObjectMother objectMother
+
+    Model model
+
+    RootSpec(Binding binding){
+        model  = binding.getVariable('m')
+        objectMother = binding.getVariable('objectMother')
+    }
+
+    def map(Closure c) {
+        def mapSpec = new MapSpec(objectMother)
+        def code = c.rehydrate(mapSpec, this, this)
         code.resolveStrategy = Closure.DELEGATE_ONLY
         code()
         return mapSpec.bm
     }
-    void model(Closure model) {
-        def modelSpec = new ModelSpec()
-        def code = model.rehydrate(modelSpec, this, this)
+    void model(Closure c) {
+        def modelSpec = new ModelSpec(model)
+        def code = c.rehydrate(modelSpec, this, this)
+        code.resolveStrategy = Closure.DELEGATE_ONLY
+        code()
+    }
+}
+
+class Root {
+    def static root(Binding binding, @DelegatesTo(strategy = Closure.DELEGATE_ONLY, value = RootSpec) Closure cl) {
+        def root = new RootSpec(binding)
+        def code = cl.rehydrate(root, this, this)
         code.resolveStrategy = Closure.DELEGATE_ONLY
         code()
     }
