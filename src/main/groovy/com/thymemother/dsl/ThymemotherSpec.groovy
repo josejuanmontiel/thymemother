@@ -11,6 +11,11 @@ class ThymemotherSpec{
 
     Model model
 
+    ThymemotherSpec(Binding binding){
+        model  = binding.getVariable('m')
+        objectMother = binding.getVariable('objectMother')
+    }
+
     ThymemotherSpec(Binding binding, String variable){
         model  = binding.getVariable(variable, 'm')
         objectMother = binding.getVariable('objectMother')
