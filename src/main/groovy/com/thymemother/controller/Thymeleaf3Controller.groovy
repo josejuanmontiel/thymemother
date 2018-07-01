@@ -15,7 +15,7 @@ public class Thymeleaf3Controller {
 
     Logger log = LoggerFactory.getLogger(Thymeleaf3Controller.class);
 
-    @RequestMapping(value="/{template}", method=RequestMethod.GET)
+    @RequestMapping(value="/tm/{template}", method=RequestMethod.GET)
     public String selectAdorable(@PathVariable("template") String template, Model m) {
         // Overwrite source of directory fixture by system properties...
         def ObjectMother objectMother = ObjectMother.getInstance();
