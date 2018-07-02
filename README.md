@@ -120,6 +120,14 @@ and you can and should hierchary class as you need model the info inside html.
 
 gradle -Dspring.thymeleaf.prefix=file:///path/.../templates/ -DfixtureDir=filesystem:///path/.../fixture bootRun
 
+## SSR - WIP
+  - https://github.com/kzkn/spring-ssr-poc
+        - https://kazkn.com/post/2017/spring-boot-nashorn-react-ssr/
+
+  - https://ebaytech.berlin/react-js-server-side-rendering-with-j2v8-b9ced07888fb
+        - https://github.com/eclipsesource/J2V8
+        - https://github.com/pgrimard/spring-j2v8
+
 ## NEXT STEPS
   - Add compilation customizer to hide this imports
 
