@@ -1,6 +1,7 @@
 package com.thymemother.config
 
 import com.thymemother.decoupled.GroovyDecoupledTemplateLogicResolver
+import com.thymemother.thymeleaf.view.ServerJsThymeleafView
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
@@ -10,7 +11,9 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Configuration
+import org.springframework.core.Ordered
+import org.springframework.util.MimeType;
 import org.springframework.web.servlet.ViewResolver
 import org.thymeleaf.IEngineConfiguration;
 import org.thymeleaf.TemplateEngine;
@@ -40,12 +43,30 @@ public class ThymeleafConfig implements ApplicationContextAware {
     }
 
     @Bean
-    public ViewResolver viewResolver() {
-        final ThymeleafViewResolver resolver = new ThymeleafViewResolver();
-        resolver.setOrder(2147483642);
+    public ThymeleafViewResolver thymeleafViewResolver(
+            ThymeleafProperties properties) {
+        ThymeleafViewResolver resolver = new ThymeleafViewResolver();
         resolver.setTemplateEngine(templateEngine());
-        resolver.setCharacterEncoding("UTF-8");
+        resolver.setCharacterEncoding(properties.getEncoding().name());
+        resolver.setContentType(appendCharset(properties.getContentType(), resolver.getCharacterEncoding()));
+        resolver.setExcludedViewNames(properties.getExcludedViewNames());
+        resolver.setViewNames(properties.getViewNames());
+        // This resolver acts as a fallback resolver (e.g. like a
+        // InternalResourceViewResolver) so it needs to have low precedence
+        resolver.setOrder(Ordered.LOWEST_PRECEDENCE - 5);
+        resolver.setCache(properties.isCache());
+        resolver.setViewClass(ServerJsThymeleafView.class);  // これがやりたかっただけ
         return resolver;
+    }
+
+    private String appendCharset(MimeType type, String charset) {
+        if (type.getCharset() != null) {
+            return type.toString();
+        }
+        LinkedHashMap<String, String> parameters = new LinkedHashMap<>();
+        parameters.put("charset", charset);
+        parameters.putAll(type.getParameters());
+        return new MimeType(type, parameters).toString();
     }
 
     @Bean

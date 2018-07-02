@@ -1,5 +1,6 @@
 package com.thymemother.decoupled
 
+import org.thymeleaf.spring4.templateresolver.SpringResourceTemplateResolver
 import org.thymeleaf.templateparser.markup.decoupled.IDecoupledTemplateLogicResolver
 
 import java.util.Set;
@@ -75,18 +76,19 @@ public final class GroovyDecoupledTemplateLogicResolver implements IDecoupledTem
             final ITemplateResource resource, final TemplateMode templateMode) {
 
         String relativeLocation = resource.getBaseName();
+
         if (this.prefix != null) {
             relativeLocation = this.prefix + relativeLocation;
         }
-        if (this.suffix != null) {
-            relativeLocation = relativeLocation + this.suffix;
-        }
 
-        if (resource.relative(relativeLocation).exists()) {
+        if (resource.relative(relativeLocation+ this.suffix).exists()) {
+            if (this.suffix != null) {
+                relativeLocation = relativeLocation + this.suffix;
+            }
             GroovyTemplateResource result = new GroovyTemplateResource(resource.relative(relativeLocation).reader());
             return result;
         } else {
-            return resource.relative(relativeLocation);
+            return resource.relative("ssr/"+resource.getBaseName()+".html");
         }
     }
 }
