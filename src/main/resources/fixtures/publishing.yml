@@ -1,6 +1,8 @@
 user1: &user1
-  name: user1
-  type: type1
+#  name: user1
+  name: ${efaker.book.title}
+#  type: type1
+  type: ${efaker.faker1.faker}
 
 user2: &user2
   name: user2
