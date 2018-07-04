@@ -1,5 +1,6 @@
 package com.thymemother.dsl
 
+import io.beanmother.core.NewObjectMother
 import io.beanmother.core.ObjectMother
 import org.springframework.ui.Model
 import org.springframework.validation.support.BindingAwareModelMap
@@ -9,9 +10,11 @@ import org.springframework.validation.support.BindingAwareModelMap
 class MapSpec {
     def bm
 
-    ObjectMother objectMother
+//    ObjectMother objectMother
+    NewObjectMother objectMother
 
-    MapSpec(ObjectMother o) {
+//    MapSpec(ObjectMother o) {
+    MapSpec(NewObjectMother o) {
         objectMother = o;
     }
 
@@ -34,7 +37,8 @@ class ModelSpec {
 
 class RootSpec {
 
-    ObjectMother objectMother
+//    ObjectMother objectMother
+    NewObjectMother objectMother
 
     Model model
 

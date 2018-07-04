@@ -1,5 +1,6 @@
 package com.thymemother.dsl
 
+import io.beanmother.core.NewObjectMother
 import io.beanmother.core.ObjectMother
 import org.springframework.ui.Model
 
@@ -7,7 +8,8 @@ class ThymemotherSpec{
 
     Binding binding
 
-    ObjectMother objectMother
+//    ObjectMother objectMother
+    NewObjectMother objectMother
 
     Model model
 
