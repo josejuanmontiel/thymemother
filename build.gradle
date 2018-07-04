@@ -33,12 +33,12 @@ targetCompatibility = 1.8
 
 repositories {
 	mavenCentral()
+	maven { url "https://jitpack.io" }
 }
 
 dependencies {
 	compile localGroovy()
-	
-//	compile('org.springframework.boot:spring-boot-starter-thymeleaf')
+
 	compile('org.springframework.boot:spring-boot-starter-web')
 	compile('org.thymeleaf:thymeleaf:3.0.9.RELEASE')
 	compile('org.thymeleaf:thymeleaf-spring4:3.0.9.RELEASE')
@@ -46,6 +46,9 @@ dependencies {
 	compile('org.codehaus.groovy:groovy-templates:2.4.6')
 
 	compile group: 'io.beanmother', name: 'beanmother-core', version: '0.7.5'
+
+	compile 'com.github.josejuanmontiel:java-faker:-SNAPSHOT'
+//	compile group: 'com.github.javafaker', name: 'javafaker', version: '0.15'
 
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 
