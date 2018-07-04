@@ -1,0 +1,4 @@
+plugin:
+  faker:
+    faker1:
+      faker: [ 'faker-extension-1', 'faker-extension-2', 'faker-extension-3']
