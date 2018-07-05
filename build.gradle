@@ -34,6 +34,7 @@ targetCompatibility = 1.8
 repositories {
 	mavenCentral()
 	maven { url "https://jitpack.io" }
+	maven { url "https://oss.sonatype.org/content/groups/public" }
 }
 
 dependencies {
@@ -42,17 +43,26 @@ dependencies {
 	compile('org.springframework.boot:spring-boot-starter-web')
 	compile('org.thymeleaf:thymeleaf:3.0.9.RELEASE')
 	compile('org.thymeleaf:thymeleaf-spring4:3.0.9.RELEASE')
-	compile('org.codehaus.groovy:groovy')
-	compile('org.codehaus.groovy:groovy-templates:2.4.6')
+	compile('org.codehaus.groovy:groovy:2.4.12')
+	compile('org.codehaus.groovy:groovy-templates:2.4.12')
 
 	compile group: 'io.beanmother', name: 'beanmother-core', version: '0.7.5'
 
 	compile 'com.github.josejuanmontiel:java-faker:-SNAPSHOT'
 //	compile group: 'com.github.javafaker', name: 'javafaker', version: '0.15'
+	compile('com.github.groovy-wslite:groovy-wslite:2.0.0-SNAPSHOT') {
+		exclude group: 'org.codehaus.groovy', module: 'groovy-all'
+	}
 
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 
 	// Set the external directory as classpath
 	runtime files('external/classpath')
 
+}
+
+configurations.all {
+	resolutionStrategy {
+		force 'org.codehaus.groovy:groovy-all:2.4.12'
+	}
 }

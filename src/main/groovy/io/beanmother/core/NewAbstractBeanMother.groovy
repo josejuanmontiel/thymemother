@@ -1,25 +1,21 @@
-package io.beanmother.core;
+package io.beanmother.core
 
-import io.beanmother.core.common.FixtureMap;
-import io.beanmother.core.common.FixtureMapTraversal;
-import io.beanmother.core.common.FixtureValue;
-import io.beanmother.core.converter.ConverterFactory;
-import io.beanmother.core.loader.Location;
-import io.beanmother.core.loader.store.DefaultFixturesStore;
-import io.beanmother.core.loader.store.FixturesStore;
-import io.beanmother.core.mapper.ConstructHelper;
-import io.beanmother.core.mapper.DefaultFixtureMapper;
-import io.beanmother.core.mapper.FixtureConverter;
-import io.beanmother.core.mapper.FixtureMapper;
-import io.beanmother.core.postprocessor.PostProcessor;
-import io.beanmother.core.postprocessor.PostProcessorFactory;
-import io.beanmother.core.script.DefaultScriptHandler;
-import io.beanmother.core.script.ScriptFragment;
-import io.beanmother.core.script.ScriptHandler;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import io.beanmother.core.common.FixtureMap
+import io.beanmother.core.common.FixtureMapTraversal
+import io.beanmother.core.common.FixtureValue
+import io.beanmother.core.converter.ConverterFactory
+import io.beanmother.core.loader.Location
+import io.beanmother.core.loader.store.DefaultFixturesStore
+import io.beanmother.core.loader.store.FixturesStore
+import io.beanmother.core.mapper.ConstructHelper
+import io.beanmother.core.mapper.DefaultFixtureMapper
+import io.beanmother.core.mapper.FixtureConverter
+import io.beanmother.core.mapper.FixtureMapper
+import io.beanmother.core.postprocessor.PostProcessor
+import io.beanmother.core.postprocessor.PostProcessorFactory
+import io.beanmother.core.script.DefaultScriptHandler
+import io.beanmother.core.script.ScriptFragment
+import io.beanmother.core.script.ScriptHandler
 
 public class NewAbstractBeanMother implements BeanMother {
 
@@ -113,7 +109,7 @@ public class NewAbstractBeanMother implements BeanMother {
     }
 
     protected String[] defaultFixturePaths() {
-        return new String[] { "fixtures" };
+        return ['fixtures'];
     }
 
     /**
